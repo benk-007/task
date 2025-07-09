@@ -4,7 +4,7 @@
  */
 package com.smsmode.task.config;
 
-import com.smsmode.booking.security.JwtAuthenticationFilter;
+import com.smsmode.task.security.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

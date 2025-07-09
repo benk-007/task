@@ -1,8 +1,8 @@
 package com.smsmode.task.security;
 
-import com.smsmode.booking.enumeration.RoleEnum;
-import com.smsmode.booking.service.JwtTokenProviderService;
-import com.smsmode.booking.util.SecurityUtil;
+import com.smsmode.task.enumeration.RoleEnum;
+import com.smsmode.task.service.JwtTokenProviderService;
+import com.smsmode.task.util.SecurityUtil;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -26,8 +26,8 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static com.smsmode.booking.util.SecurityUtil.AUTHORITIES_KEY;
-import static com.smsmode.booking.util.SecurityUtil.USERNAME_KEY;
+import static com.smsmode.task.util.SecurityUtil.AUTHORITIES_KEY;
+import static com.smsmode.task.util.SecurityUtil.USERNAME_KEY;
 
 
 /**

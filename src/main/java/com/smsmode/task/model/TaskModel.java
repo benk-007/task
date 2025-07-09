@@ -4,17 +4,12 @@
  */
 package com.smsmode.task.model;
 
-import com.smsmode.booking.embeddable.GuestEmbeddable;
-import com.smsmode.booking.embeddable.UnitEmbeddable;
-import com.smsmode.booking.model.base.AbstractBaseModel;
-import jakarta.persistence.Embedded;
+import com.smsmode.task.model.base.AbstractBaseModel;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.time.LocalDate;
 
 /**
  * Entity representing a Guest in the PMS system.

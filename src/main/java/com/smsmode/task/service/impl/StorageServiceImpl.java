@@ -4,8 +4,7 @@
  */
 package com.smsmode.task.service.impl;
 
-import com.smsmode.booking.model.IdentityDocumentModel;
-import com.smsmode.booking.service.StorageService;
+import com.smsmode.task.service.StorageService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -60,11 +59,4 @@ public class StorageServiceImpl implements StorageService {
         }
     }
 
-    @Override
-    public String generateDocumentPath(IdentityDocumentModel identityDocument) {
-        String extension = identityDocument.getFileName().substring(identityDocument.getFileName().lastIndexOf("."));
-        return this.imageUploadPath
-                .replace(":guestId", identityDocument.getGuest().getId())
-                .concat("/").concat(identityDocument.getId()).concat(extension);
-    }
 }

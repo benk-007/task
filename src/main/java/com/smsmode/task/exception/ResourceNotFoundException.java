@@ -4,7 +4,7 @@
  */
 package com.smsmode.task.exception;
 
-import com.smsmode.booking.exception.enumeration.ResourceNotFoundExceptionTitleEnum;
+import com.smsmode.task.exception.enumeration.ResourceNotFoundExceptionTitleEnum;
 import org.springframework.http.HttpStatus;
 
 /**

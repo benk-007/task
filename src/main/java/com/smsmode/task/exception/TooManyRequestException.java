@@ -4,7 +4,7 @@
  */
 package com.smsmode.task.exception;
 
-import com.smsmode.booking.exception.enumeration.TooManyRequestExceptionTitleEnum;
+import com.smsmode.task.exception.enumeration.TooManyRequestExceptionTitleEnum;
 import org.springframework.http.HttpStatus;
 
 /**

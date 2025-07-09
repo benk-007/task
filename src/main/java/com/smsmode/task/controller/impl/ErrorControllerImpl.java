@@ -4,11 +4,11 @@
  */
 package com.smsmode.task.controller.impl;
 
-import com.smsmode.booking.controller.ErrorController;
-import com.smsmode.booking.exception.*;
-import com.smsmode.booking.exception.enumeration.MethodArgumentsExceptionTitleEnum;
-import com.smsmode.booking.resource.error.ErrorDetailsResource;
-import com.smsmode.booking.resource.error.ValidationErrorResource;
+import com.smsmode.task.controller.ErrorController;
+import com.smsmode.task.exception.*;
+import com.smsmode.task.exception.enumeration.MethodArgumentsExceptionTitleEnum;
+import com.smsmode.task.resource.error.ErrorDetailsResource;
+import com.smsmode.task.resource.error.ValidationErrorResource;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

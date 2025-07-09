@@ -4,8 +4,8 @@
  */
 package com.smsmode.task.controller;
 
-import com.smsmode.booking.exception.AbstractBaseException;
-import com.smsmode.booking.resource.error.ErrorDetailsResource;
+import com.smsmode.task.exception.AbstractBaseException;
+import com.smsmode.task.resource.error.ErrorDetailsResource;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;

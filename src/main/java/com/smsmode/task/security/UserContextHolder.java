@@ -4,7 +4,7 @@
  */
 package com.smsmode.task.security;
 
-import com.smsmode.booking.enumeration.RoleEnum;
+import com.smsmode.task.enumeration.RoleEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.Assert;
 

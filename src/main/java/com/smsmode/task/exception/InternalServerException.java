@@ -4,7 +4,7 @@
  */
 package com.smsmode.task.exception;
 
-import com.smsmode.booking.exception.enumeration.BaseExceptionEnum;
+import com.smsmode.task.exception.enumeration.BaseExceptionEnum;
 import org.springframework.http.HttpStatus;
 
 /**

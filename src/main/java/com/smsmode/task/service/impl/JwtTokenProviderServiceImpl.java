@@ -6,8 +6,8 @@ package com.smsmode.task.service.impl;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import com.smsmode.booking.service.JwtTokenProviderService;
-import com.smsmode.booking.util.SecurityUtil;
+import com.smsmode.task.service.JwtTokenProviderService;
+import com.smsmode.task.util.SecurityUtil;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 

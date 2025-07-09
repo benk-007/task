@@ -4,7 +4,7 @@
  */
 package com.smsmode.task.exception;
 
-import com.smsmode.booking.exception.enumeration.AuthorizationForbiddenExceptionTitleEnum;
+import com.smsmode.task.exception.enumeration.AuthorizationForbiddenExceptionTitleEnum;
 import org.springframework.http.HttpStatus;
 
 /**

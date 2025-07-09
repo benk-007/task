@@ -4,8 +4,9 @@
  */
 package com.smsmode.task.config;
 
-import com.smsmode.booking.security.UserContextHolder;
-import com.smsmode.booking.util.SecurityUtil;
+
+import com.smsmode.task.security.UserContextHolder;
+import com.smsmode.task.util.SecurityUtil;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.AuditorAware;

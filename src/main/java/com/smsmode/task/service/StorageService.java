@@ -4,9 +4,6 @@
  */
 package com.smsmode.task.service;
 
-import com.smsmode.booking.model.DocumentModel;
-import com.smsmode.booking.model.IdentityDocumentModel;
-
 import java.io.InputStream;
 
 /**
@@ -20,6 +17,4 @@ public interface StorageService {
     String storeFile(String path, InputStream inputStream);
 
     void deleteFile(String path);
-
-    String generateDocumentPath(IdentityDocumentModel identityDocument);
 }
