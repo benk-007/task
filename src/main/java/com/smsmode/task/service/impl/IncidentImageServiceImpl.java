@@ -109,4 +109,19 @@ public class IncidentImageServiceImpl implements IncidentImageService {
 
         return ResponseEntity.created(URI.create("")).body(result);
     }
+
+    @Override
+    public ResponseEntity<Void> removeById(String imageId) {
+        if (imageDaoService.existsBy(ImageSpecification.withId(imageId))) {
+            ImageModel image = imageDaoService.findOneBy(ImageSpecification.withId(imageId));
+            String imagePath = storageService.generateIncidentImagePath(image);
+            storageService.deleteFile(imagePath);
+            imageDaoService.deleteBy(ImageSpecification.withId(imageId));
+            return ResponseEntity.noContent().build();
+        } else {
+            throw new ResourceNotFoundException(
+                    ResourceNotFoundExceptionTitleEnum.IMAGE_NOT_FOUND,
+                    "No image found with the specified criteria");
+        }
+    }
 }

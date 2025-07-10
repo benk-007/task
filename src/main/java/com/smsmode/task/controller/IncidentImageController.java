@@ -23,4 +23,8 @@ public interface IncidentImageController {
     ResponseEntity<List<ImageGetResource>> postImagesForIncident(
             @RequestParam("incidentId") String incidentId,
             @RequestParam("files") List<MultipartFile> files);
+
+    @DeleteMapping("/{imageId}")
+    ResponseEntity<Void> deleteImageById(@PathVariable String imageId);
+
 }

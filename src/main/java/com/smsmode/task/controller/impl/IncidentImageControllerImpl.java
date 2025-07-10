@@ -33,4 +33,10 @@ public class IncidentImageControllerImpl implements IncidentImageController {
     public ResponseEntity<List<ImageGetResource>> postImagesForIncident(String incidentId, List<MultipartFile> files) {
         return incidentImageService.createImages(incidentId, files);
     }
+
+    @Override
+    public ResponseEntity<Void> deleteImageById(String imageId) {
+        return incidentImageService.removeById(imageId);
+    }
+
 }

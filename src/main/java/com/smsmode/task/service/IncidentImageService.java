@@ -17,4 +17,5 @@ public interface IncidentImageService {
 
     ResponseEntity<List<ImageGetResource>> createImages(String incidentId, List<MultipartFile> files);
 
+    ResponseEntity<Void> removeById(String imageId);
 }
