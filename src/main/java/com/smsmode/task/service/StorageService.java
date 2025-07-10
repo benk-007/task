@@ -4,6 +4,8 @@
  */
 package com.smsmode.task.service;
 
+import com.smsmode.task.model.ImageModel;
+
 import java.io.InputStream;
 
 /**
@@ -17,4 +19,6 @@ public interface StorageService {
     String storeFile(String path, InputStream inputStream);
 
     void deleteFile(String path);
+
+    String generateIncidentImagePath(ImageModel image);
 }

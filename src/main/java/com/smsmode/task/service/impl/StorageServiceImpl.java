@@ -4,6 +4,9 @@
  */
 package com.smsmode.task.service.impl;
 
+import com.smsmode.task.model.ImageModel;
+
+
 import com.smsmode.task.service.StorageService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -27,7 +30,7 @@ import java.nio.file.StandardCopyOption;
 @Service
 public class StorageServiceImpl implements StorageService {
 
-    @Value("${file.upload.identity-document-image}")
+    @Value("${file.upload.incident-image}")
     private String imageUploadPath;
 
     public String storeFile(String path, InputStream inputStream) {
@@ -59,4 +62,9 @@ public class StorageServiceImpl implements StorageService {
         }
     }
 
+    @Override
+    public String generateIncidentImagePath(ImageModel image) {
+        String extension = image.getFileName().substring(image.getFileName().lastIndexOf("."));
+        return this.imageUploadPath.replace(":incidentId", image.getIncident().getId()).concat("/").concat(image.getId()).concat(extension);
+    }
 }
