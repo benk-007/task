@@ -4,6 +4,8 @@
  */
 package com.smsmode.task.model;
 
+import com.smsmode.task.embeddable.RentalEmbeddable;
+import com.smsmode.task.embeddable.UserRefEmbeddable;
 import com.smsmode.task.model.base.AbstractBaseModel;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -32,10 +34,29 @@ public class IncidentModel extends AbstractBaseModel {
     private String name;
 
     @Column(nullable = false)
-    private String reporterId;
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "id", column = @Column(name = "reporter_id")),
+            @AttributeOverride(name = "name", column = @Column(name = "reporter_name"))
+    })
+    private UserRefEmbeddable reporter;
 
-    private String reviewerId;
-    private String rentalId;
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "id", column = @Column(name = "reviewer_id")),
+            @AttributeOverride(name = "name", column = @Column(name = "reviewer_name"))
+    })
+    private UserRefEmbeddable reviewer;
+
+
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "id", column = @Column(name = "rental_id")),
+            @AttributeOverride(name = "name", column = @Column(name = "rental_name"))
+    })
+    private RentalEmbeddable rental;
+
+
     private String severity;
     private String status;
     private String tags;

@@ -1,22 +1,26 @@
 package com.smsmode.task.resource.incident;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import com.smsmode.task.embeddable.RentalEmbeddable;
+import com.smsmode.task.embeddable.UserRefEmbeddable;
+import com.smsmode.task.resource.category.CategoryItemGetResource;
 import lombok.Data;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import java.util.Set;
 
 @Data
 public class IncidentPostResource {
+
     @NotBlank
     private String name;
 
-    @NotBlank
-    private String reporterId;
+    @NotNull
+    private UserRefEmbeddable reporter;
 
-    private String reviewerId;
+    private UserRefEmbeddable reviewer;
 
-    private String rentalId;
+    private RentalEmbeddable rental;
 
     @NotBlank
     private String severity;
@@ -29,6 +33,5 @@ public class IncidentPostResource {
     private String description;
 
     @NotNull
-    private Set<String> categoryIds;
-
+    private Set<CategoryItemGetResource> categories;
 }

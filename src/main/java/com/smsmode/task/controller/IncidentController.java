@@ -14,6 +14,6 @@ public interface IncidentController {
     @PostMapping(consumes = "multipart/form-data")
     ResponseEntity<IncidentItemGetResource> createIncident(
             @RequestPart("payload") @Valid IncidentPostResource incidentPostResource,
-            @RequestPart(value = "file", required = false) MultipartFile[] incidentImages);
+            @RequestPart(value = "files", required = false) MultipartFile[] incidentImages);
 
 }

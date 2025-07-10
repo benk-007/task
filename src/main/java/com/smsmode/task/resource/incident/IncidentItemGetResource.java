@@ -1,5 +1,7 @@
 package com.smsmode.task.resource.incident;
 
+import com.smsmode.task.embeddable.RentalEmbeddable;
+import com.smsmode.task.embeddable.UserRefEmbeddable;
 import com.smsmode.task.resource.category.CategoryItemGetResource;
 import com.smsmode.task.resource.common.AuditGetResource;
 import lombok.Data;
@@ -12,22 +14,16 @@ public class IncidentItemGetResource {
 
     private String name;
 
-    private String reporterId;
-
-    private String reviewerId;
-
-    private String rentalId;
+    private UserRefEmbeddable reporter;
+    private UserRefEmbeddable reviewer;
+    private RentalEmbeddable rental;
 
     private String severity;
-
     private String status;
-
     private String tags;
-
     private String description;
 
     private Set<CategoryItemGetResource> categories;
 
     private AuditGetResource audit;
-
 }

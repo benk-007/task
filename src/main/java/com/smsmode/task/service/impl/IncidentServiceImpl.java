@@ -10,6 +10,7 @@ import com.smsmode.task.mapper.IncidentMapper;
 import com.smsmode.task.model.CategoryModel;
 import com.smsmode.task.model.ImageModel;
 import com.smsmode.task.model.IncidentModel;
+import com.smsmode.task.resource.category.CategoryItemGetResource;
 import com.smsmode.task.resource.incident.IncidentItemGetResource;
 import com.smsmode.task.resource.incident.IncidentPostResource;
 import com.smsmode.task.service.IncidentService;
@@ -43,15 +44,14 @@ public class IncidentServiceImpl implements IncidentService {
 
         IncidentModel incidentModel = incidentMapper.postResourceToModel(incidentPostResource);
 
-        // Load and attach categories
+
         Set<CategoryModel> categories = new HashSet<>();
-        for (String categoryId : incidentPostResource.getCategoryIds()) {
-            CategoryModel category = categoryDaoService.findOneBy(CategorySpecification.withIdEqual(categoryId));
+        for (CategoryItemGetResource categoryResource : incidentPostResource.getCategories()) {
+            CategoryModel category = categoryDaoService.findOneBy(CategorySpecification.withIdEqual(categoryResource.getId()));
             categories.add(category);
         }
         incidentModel.setCategories(categories);
 
-        // Save incident first (must have ID before attaching images)
         incidentModel = incidentDaoService.save(incidentModel);
 
         // Process and save each image
@@ -62,10 +62,9 @@ public class IncidentServiceImpl implements IncidentService {
                     imageModel.setIncident(incidentModel);
                     imageModel.setFileName(image.getOriginalFilename());
 
-                    // Save image model to generate ID
                     imageModel = imageDaoService.save(imageModel);
 
-                    // Generate path and store file
+
                     String imagePath = storageService.generateIncidentImagePath(imageModel);
                     try {
                         String savedFileName = storageService.storeFile(imagePath, image.getInputStream());
@@ -82,7 +81,6 @@ public class IncidentServiceImpl implements IncidentService {
             }
         }
 
-        // Return response DTO
         IncidentItemGetResource response = incidentMapper.modelToItemGetResource(incidentModel);
         return ResponseEntity.created(URI.create("")).body(response);
     }
