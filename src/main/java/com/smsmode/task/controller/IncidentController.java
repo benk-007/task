@@ -1,5 +1,6 @@
 package com.smsmode.task.controller;
 
+import com.smsmode.task.resource.incident.IncidentPatchResource;
 import com.smsmode.task.resource.incident.IncidentPostResource;
 import com.smsmode.task.resource.incident.IncidentItemGetResource;
 import jakarta.validation.Valid;
@@ -22,4 +23,13 @@ public interface IncidentController {
             @RequestParam(value = "search", required = false) String search,
             Pageable pageable);
 
+    @GetMapping("/{incidentId}")
+    ResponseEntity<IncidentItemGetResource> getIncidentById(
+            @PathVariable("incidentId") String incidentId);
+
+    @PatchMapping("/{incidentId}")
+    ResponseEntity<IncidentItemGetResource> updateIncident(
+            @PathVariable("incidentId") String incidentId,
+            @RequestBody @Valid IncidentPatchResource incidentPatchResource
+    );
 }

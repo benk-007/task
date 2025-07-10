@@ -9,4 +9,6 @@ public interface IncidentDaoService {
     IncidentModel save(IncidentModel incidentModel);
 
     Page<IncidentModel> findAllBy(Specification<IncidentModel> specification, Pageable pageable);
+
+    IncidentModel findOneBy(Specification<IncidentModel> specification);
 }

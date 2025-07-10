@@ -13,6 +13,7 @@ import com.smsmode.task.model.ImageModel;
 import com.smsmode.task.model.IncidentModel;
 import com.smsmode.task.resource.category.CategoryItemGetResource;
 import com.smsmode.task.resource.incident.IncidentItemGetResource;
+import com.smsmode.task.resource.incident.IncidentPatchResource;
 import com.smsmode.task.resource.incident.IncidentPostResource;
 import com.smsmode.task.service.IncidentService;
 import com.smsmode.task.service.StorageService;
@@ -31,6 +32,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -95,4 +97,38 @@ public class IncidentServiceImpl implements IncidentService {
         Page<IncidentModel> incidents = incidentDaoService.findAllBy(specification,pageable);
         return ResponseEntity.ok(incidents.map(incidentMapper::modelToItemGetResource));
     }
+
+    @Override
+    public ResponseEntity<IncidentItemGetResource> retrieveById(String incidentId) {
+        IncidentModel incident = incidentDaoService.findOneBy(IncidentSpecification.withIdEqual(incidentId));
+        return ResponseEntity.ok(incidentMapper.modelToItemGetResource(incident));
+    }
+
+    @Override
+    public ResponseEntity<IncidentItemGetResource> updateById(String incidentId, IncidentPatchResource incidentPatchResource) {
+        IncidentModel existingIncident = incidentDaoService.findOneBy(IncidentSpecification.withIdEqual(incidentId));
+
+        existingIncident.setName(incidentPatchResource.getName());
+        existingIncident.setReporter(incidentPatchResource.getReporter());
+        existingIncident.setReviewer(incidentPatchResource.getReviewer());
+        existingIncident.setRental(incidentPatchResource.getRental());
+        existingIncident.setSeverity(incidentPatchResource.getSeverity());
+        existingIncident.setStatus(incidentPatchResource.getStatus());
+        existingIncident.setTags(incidentPatchResource.getTags());
+        existingIncident.setDescription(incidentPatchResource.getDescription());
+
+        Set<String> categoryIds = incidentPatchResource.getCategories()
+                .stream()
+                .map(CategoryItemGetResource::getId)
+                .collect(Collectors.toSet());
+
+        Set<CategoryModel> categoryModels = categoryDaoService.findAllByIdIn(categoryIds);
+        existingIncident.setCategories(categoryModels);
+
+        IncidentModel updatedIncident = incidentDaoService.save(existingIncident);
+
+        IncidentItemGetResource response = incidentMapper.modelToItemGetResource(updatedIncident);
+        return ResponseEntity.ok(response);
+    }
+
 }

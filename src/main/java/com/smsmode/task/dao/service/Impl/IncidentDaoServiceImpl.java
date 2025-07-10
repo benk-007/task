@@ -2,6 +2,8 @@ package com.smsmode.task.dao.service.Impl;
 
 import com.smsmode.task.dao.service.IncidentDaoService;
 import com.smsmode.task.dao.repository.IncidentRepository;
+import com.smsmode.task.exception.ResourceNotFoundException;
+import com.smsmode.task.exception.enumeration.ResourceNotFoundExceptionTitleEnum;
 import com.smsmode.task.model.IncidentModel;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,4 +28,16 @@ public class IncidentDaoServiceImpl implements IncidentDaoService {
     public Page<IncidentModel> findAllBy(Specification<IncidentModel> specification, Pageable pageable){
         return incidentRepository.findAll(specification, pageable);
     }
+
+    @Override
+    public IncidentModel findOneBy(Specification<IncidentModel> specification) {
+        return incidentRepository.findOne(specification).orElseThrow(
+                () -> {
+                    log.debug("Couldn't find any incident with the specified criteria");
+                    return new ResourceNotFoundException(
+                            ResourceNotFoundExceptionTitleEnum.INCIDENT_NOT_FOUND,
+                            "No incident found with the specified criteria");
+                });
+    }
+
 }

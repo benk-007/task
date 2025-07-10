@@ -12,6 +12,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -34,4 +37,10 @@ public class CategoryDaoServiceImpl implements CategoryDaoService {
     public Page<CategoryModel> findAllBy(Specification<CategoryModel> specification, Pageable pageable) {
         return categoryRepository.findAll(specification, pageable);
     }
+
+    @Override
+    public Set<CategoryModel> findAllByIdIn(Set<String> ids) {
+        return new HashSet<>(categoryRepository.findAllById(ids));
+    }
+
 }

@@ -14,4 +14,11 @@ public class IncidentSpecification {
                         "%" + name.toLowerCase() + "%"
                 );
     }
+
+    public static Specification<IncidentModel> withIdEqual(String incidentId) {
+        return (root, query, criteriaBuilder) ->
+                criteriaBuilder.equal(root.get(IncidentModel_.id), incidentId);
+    }
+
+
 }
