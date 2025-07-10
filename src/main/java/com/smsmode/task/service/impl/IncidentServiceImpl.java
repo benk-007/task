@@ -4,6 +4,7 @@ import com.smsmode.task.dao.service.CategoryDaoService;
 import com.smsmode.task.dao.service.ImageDaoService;
 import com.smsmode.task.dao.service.IncidentDaoService;
 import com.smsmode.task.dao.specification.CategorySpecification;
+import com.smsmode.task.dao.specification.IncidentSpecification;
 import com.smsmode.task.exception.InternalServerException;
 import com.smsmode.task.exception.enumeration.InternalServerExceptionTitleEnum;
 import com.smsmode.task.mapper.IncidentMapper;
@@ -18,6 +19,9 @@ import com.smsmode.task.service.StorageService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
@@ -83,5 +87,12 @@ public class IncidentServiceImpl implements IncidentService {
 
         IncidentItemGetResource response = incidentMapper.modelToItemGetResource(incidentModel);
         return ResponseEntity.created(URI.create("")).body(response);
+    }
+
+    @Override
+    public ResponseEntity<Page<IncidentItemGetResource>> retrieveAllByPage(String search, Pageable pageable){
+        Specification<IncidentModel> specification = IncidentSpecification.withNameLike(search);
+        Page<IncidentModel> incidents = incidentDaoService.findAllBy(specification,pageable);
+        return ResponseEntity.ok(incidents.map(incidentMapper::modelToItemGetResource));
     }
 }

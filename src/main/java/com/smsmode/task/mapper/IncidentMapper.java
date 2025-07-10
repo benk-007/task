@@ -1,6 +1,5 @@
 package com.smsmode.task.mapper;
 
-import com.smsmode.task.model.CategoryModel;
 import com.smsmode.task.model.IncidentModel;
 import com.smsmode.task.model.base.AbstractBaseModel;
 import com.smsmode.task.resource.common.AuditGetResource;
@@ -29,4 +28,8 @@ public abstract class IncidentMapper {
 
     public abstract AuditGetResource modelToAuditResource(AbstractBaseModel baseModel);
 
+    @AfterMapping
+    public void afterModelToItemGetResource(IncidentModel incidentModel, @MappingTarget IncidentItemGetResource incidentItemGetResource) {
+        incidentItemGetResource.setAudit(this.modelToAuditResource(incidentModel));
+    }
 }
