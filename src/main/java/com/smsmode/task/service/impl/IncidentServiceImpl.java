@@ -6,6 +6,8 @@ import com.smsmode.task.dao.service.IncidentDaoService;
 import com.smsmode.task.dao.specification.CategorySpecification;
 import com.smsmode.task.dao.specification.ImageSpecification;
 import com.smsmode.task.dao.specification.IncidentSpecification;
+import com.smsmode.task.enumeration.SeverityEnum;
+import com.smsmode.task.enumeration.StatusEnum;
 import com.smsmode.task.exception.InternalServerException;
 import com.smsmode.task.exception.enumeration.InternalServerExceptionTitleEnum;
 import com.smsmode.task.exception.enumeration.ResourceNotFoundExceptionTitleEnum;
@@ -115,8 +117,18 @@ public class IncidentServiceImpl implements IncidentService {
         existingIncident.setReporter(incidentPatchResource.getReporter());
         existingIncident.setReviewer(incidentPatchResource.getReviewer());
         existingIncident.setRental(incidentPatchResource.getRental());
-        existingIncident.setSeverity(incidentPatchResource.getSeverity());
-        existingIncident.setStatus(incidentPatchResource.getStatus());
+        existingIncident.setSeverity(
+                incidentPatchResource.getSeverity() != null
+                        ? SeverityEnum.valueOf(incidentPatchResource.getSeverity())
+                        : null
+        );
+
+        existingIncident.setStatus(
+                incidentPatchResource.getStatus() != null
+                        ? StatusEnum.valueOf(incidentPatchResource.getStatus())
+                        : null
+        );
+
         existingIncident.setTags(incidentPatchResource.getTags());
         existingIncident.setDescription(incidentPatchResource.getDescription());
 
@@ -145,7 +157,7 @@ public class IncidentServiceImpl implements IncidentService {
         for (ImageModel image : images) {
             String path = storageService.generateIncidentImagePath(image);
             storageService.deleteFile(path);
-            imageDaoService.deleteBy(ImageSpecification.withId(image.getId())); 
+            imageDaoService.deleteBy(ImageSpecification.withId(image.getId()));
         }
 
         incidentDaoService.deleteBy(IncidentSpecification.withIdEqual(incidentId));

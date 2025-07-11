@@ -6,6 +6,8 @@ package com.smsmode.task.model;
 
 import com.smsmode.task.embeddable.RentalEmbeddable;
 import com.smsmode.task.embeddable.UserRefEmbeddable;
+import com.smsmode.task.enumeration.SeverityEnum;
+import com.smsmode.task.enumeration.StatusEnum;
 import com.smsmode.task.model.base.AbstractBaseModel;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -56,9 +58,12 @@ public class IncidentModel extends AbstractBaseModel {
     })
     private RentalEmbeddable rental;
 
+    @Enumerated(EnumType.STRING)
+    private SeverityEnum severity;
 
-    private String severity;
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private StatusEnum status;
+
     private String tags;
     private String description;
 
