@@ -11,4 +11,7 @@ public interface IncidentDaoService {
     Page<IncidentModel> findAllBy(Specification<IncidentModel> specification, Pageable pageable);
 
     IncidentModel findOneBy(Specification<IncidentModel> specification);
+
+    void deleteBy(Specification<IncidentModel> specification);
+
 }

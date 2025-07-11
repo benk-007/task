@@ -41,4 +41,10 @@ public class IncidentControllerImpl implements IncidentController {
     public ResponseEntity<IncidentItemGetResource> updateIncident(String incidentId, IncidentPatchResource incidentPatchResource){
         return incidentService.updateById(incidentId, incidentPatchResource);
     }
+
+    @Override
+    public ResponseEntity<Void> deleteIncident(String incidentId) {
+        return incidentService.deleteById(incidentId);
+    }
+
 }

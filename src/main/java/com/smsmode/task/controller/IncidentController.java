@@ -32,4 +32,7 @@ public interface IncidentController {
             @PathVariable("incidentId") String incidentId,
             @RequestBody @Valid IncidentPatchResource incidentPatchResource
     );
+
+    @DeleteMapping("/{incidentId}")
+    ResponseEntity<Void> deleteIncident(@PathVariable("incidentId") String incidentId);
 }

@@ -40,4 +40,8 @@ public class IncidentDaoServiceImpl implements IncidentDaoService {
                 });
     }
 
+    @Override
+    public void deleteBy(Specification<IncidentModel> specification) {
+        incidentRepository.deleteAll(incidentRepository.findAll(specification));
+    }
 }

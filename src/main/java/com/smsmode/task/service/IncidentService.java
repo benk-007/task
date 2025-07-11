@@ -16,4 +16,6 @@ public interface IncidentService {
     ResponseEntity<IncidentItemGetResource> retrieveById(String incidentId);
 
     ResponseEntity<IncidentItemGetResource> updateById(String incidentId, IncidentPatchResource incidentPatchResource);
+
+    ResponseEntity<Void> deleteById(String incidentId);
 }

@@ -4,9 +4,11 @@ import com.smsmode.task.dao.service.CategoryDaoService;
 import com.smsmode.task.dao.service.ImageDaoService;
 import com.smsmode.task.dao.service.IncidentDaoService;
 import com.smsmode.task.dao.specification.CategorySpecification;
+import com.smsmode.task.dao.specification.ImageSpecification;
 import com.smsmode.task.dao.specification.IncidentSpecification;
 import com.smsmode.task.exception.InternalServerException;
 import com.smsmode.task.exception.enumeration.InternalServerExceptionTitleEnum;
+import com.smsmode.task.exception.enumeration.ResourceNotFoundExceptionTitleEnum;
 import com.smsmode.task.mapper.IncidentMapper;
 import com.smsmode.task.model.CategoryModel;
 import com.smsmode.task.model.ImageModel;
@@ -31,6 +33,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.net.URI;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -131,4 +134,22 @@ public class IncidentServiceImpl implements IncidentService {
         return ResponseEntity.ok(response);
     }
 
+
+    @Override
+    @Transactional
+    public ResponseEntity<Void> deleteById(String incidentId) {
+
+
+        IncidentModel incident = incidentDaoService.findOneBy(IncidentSpecification.withIdEqual(incidentId)); // Ensure incident exists, or throw error
+        List<ImageModel> images = imageDaoService.findAllBy(ImageSpecification.withIncidentIdEqual(incidentId));
+        for (ImageModel image : images) {
+            String path = storageService.generateIncidentImagePath(image);
+            storageService.deleteFile(path);
+            imageDaoService.deleteBy(ImageSpecification.withId(image.getId())); 
+        }
+
+        incidentDaoService.deleteBy(IncidentSpecification.withIdEqual(incidentId));
+
+        return ResponseEntity.noContent().build();
+    }
 }
