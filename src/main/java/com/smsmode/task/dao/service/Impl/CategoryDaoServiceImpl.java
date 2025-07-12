@@ -34,6 +34,18 @@ public class CategoryDaoServiceImpl implements CategoryDaoService {
     }
 
     @Override
+    public CategoryModel save(CategoryModel categoryModel) {
+        log.debug("Saving category: {}", categoryModel.getName());
+        return categoryRepository.save(categoryModel);
+    }
+
+    @Override
+    public void delete(CategoryModel categoryModel) {
+        log.debug("Deleting category: {}", categoryModel.getName());
+        categoryRepository.delete(categoryModel);
+    }
+
+    @Override
     public Page<CategoryModel> findAllBy(Specification<CategoryModel> specification, Pageable pageable) {
         return categoryRepository.findAll(specification, pageable);
     }
